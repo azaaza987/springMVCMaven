@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated Oct 21, 2016 3:12:00 PM by Hibernate Tools 3.2.2.GA -->
+<hibernate-mapping>
+    <class name="com.aig.postsale.entity.AgenceList" table="postsales_AgenceList">
+        <id name="agencyId" type="int">
+            <column name="agency_id" />
+                         <generator class="sequence" >
+            <param name="sequence">agencyListIdSeq</param>
+            </generator>
+        </id>
+        <property name="agencyName" type="string">
+            <column name="agency_name" length="60" />
+        </property>
+        <property name="agencyStatus" type="string">
+            <column name="agency_status" length="10" />
+        </property>
+    </class>
+</hibernate-mapping>

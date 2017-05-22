@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated Oct 21, 2016 3:12:00 PM by Hibernate Tools 3.2.2.GA -->
+<hibernate-mapping>
+    <class name="com.aig.postsale.entity.CoverageClaimType" table="postsales_CoverageClaimType" >
+        <id name="coverageClaimTypeId" type="int">
+            <column name="coverage_claim_type_id" />
+            <generator class="sequence" >
+            <param name="sequence">coverageClaimTypeIdSeq</param>
+            </generator>
+        </id>
+        <many-to-one name="miscellaneous" class="com.aig.postsale.entity.Miscellaneous" fetch="select">
+            <column name="claim_type" />
+        </many-to-one>
+        <property name="coverageCode" type="string">
+            <column name="coverage_code" length="60" />
+        </property>
+    </class>
+</hibernate-mapping>

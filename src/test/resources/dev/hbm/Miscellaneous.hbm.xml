@@ -1,0 +1,62 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated Oct 21, 2016 3:12:00 PM by Hibernate Tools 3.2.2.GA -->
+<hibernate-mapping>
+    <class name="com.aig.postsale.entity.Miscellaneous" table="postsales_Miscellaneous" >
+        <id name="miscellaneousId" type="int">
+            <column name="miscellaneous_id" />
+            <generator class="sequence" >
+            <param name="sequence">miscellaneousIdSeq</param>
+            </generator>
+        </id>
+        <property name="miscellaneousType" type="string">
+            <column name="miscellaneous_type" length="30" />
+        </property>
+        <property name="miscellaneousValue" type="string">
+            <column name="miscellaneous_value" length="20" />
+        </property>
+        <property name="thirdParyValue" type="string">
+            <column name="third_party_value" length="10" />
+        </property>
+        <property name="miscellaneousStatus" type="java.lang.Integer">
+            <column name="miscellaneous_status" />
+        </property>
+        <property name="createdBy" type="string">
+            <column name="created_by" length="10" />
+        </property>
+        <property name="createdDateTimestamp" type="timestamp">
+            <column name="created_date_timestamp" length="23" />
+        </property>
+        <property name="updatedBy" type="string">
+            <column name="updated_by" length="10" />
+        </property>
+        <property name="updatedDateTimestamp" type="timestamp">
+            <column name="updated_date_timestamp" length="23" />
+        </property>
+        <set name="fnolclaims" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="claim_type" />
+            </key>
+            <one-to-many class="com.aig.postsale.entity.Fnolclaim" />
+        </set>
+        <set name="coverageClaimTypes" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="claim_type" />
+            </key>
+            <one-to-many class="com.aig.postsale.entity.CoverageClaimType" />
+        </set>
+        <set name="fnolimages" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="image_type" />
+            </key>
+            <one-to-many class="com.aig.postsale.entity.Fnolimage" />
+        </set>
+         <set name="insuredPerson" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="id_type" />
+            </key>
+            <one-to-many class="com.aig.postsale.entity.InsuredPerson" />
+        </set>
+    </class>
+</hibernate-mapping>

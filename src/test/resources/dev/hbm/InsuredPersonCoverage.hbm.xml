@@ -1,0 +1,26 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated Oct 21, 2016 3:12:00 PM by Hibernate Tools 3.2.2.GA -->
+<hibernate-mapping>
+    <class name="com.aig.postsale.entity.InsuredPersonCoverage" table="postsales_IsuredPersonCoverage" >
+        <id name="policyCoverageId" type="int">
+            <column name="policy_coverage_id" />
+          <generator class="sequence" >
+            <param name="sequence">InsuredPersonCoverageIdSeq</param>
+            </generator>
+        </id>
+        <many-to-one name="insuredPerson" class="com.aig.postsale.entity.InsuredPerson" lazy="false" fetch="select">
+            <column name="policy_person_id" />
+        </many-to-one>
+        <property name="coverageCode" type="string">
+            <column name="coverage_code" length="60" />
+        </property>
+        <property name="coverageName" type="string">
+            <column name="coverage_name" length="200" />
+        </property>
+        <property name="coverageAmount" type="string">
+            <column name="coverage_amount" length="20" />
+        </property>
+    </class>
+</hibernate-mapping>

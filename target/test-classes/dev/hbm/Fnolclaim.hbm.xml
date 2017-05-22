@@ -1,0 +1,66 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated Oct 21, 2016 3:12:00 PM by Hibernate Tools 3.2.2.GA -->
+<hibernate-mapping>
+    <class name="com.aig.postsale.entity.Fnolclaim" table="postsales_FNOLClaim"  lazy="true">
+        <id name="fnolNumber" type="int">
+            <column name="FNOL_number"/>
+                   <generator class="sequence" >
+            <param name="sequence">FnolclaimIdSeq</param>
+            </generator>
+        </id>
+        <many-to-one name="miscellaneous" class="com.aig.postsale.entity.Miscellaneous" fetch="select" lazy="no-proxy">
+            <column name="claim_type" />
+        </many-to-one>
+        <many-to-one name="insuredPerson" class="com.aig.postsale.entity.InsuredPerson" fetch="select" lazy="no-proxy">
+            <column name="insured_person_id" />
+        </many-to-one>
+        <many-to-one name="payeeInformation" class="com.aig.postsale.entity.PayeeInformation" fetch="select" lazy="no-proxy">
+            <column name="payee_info_id" />
+        </many-to-one>
+        <many-to-one name="policy" class="com.aig.postsale.entity.Policy" fetch="select" lazy="no-proxy">
+            <column name="policy_number" length="30" />
+            <column name="endorsement_no" length="30" />
+        </many-to-one>
+        <property name="claimNumber" type="string">
+            <column name="claim_number" length="20" />
+        </property>
+        <property name="clientId" type="java.lang.Integer">
+            <column name="client_id" />
+        </property>
+        <property name="lossDate" type="timestamp">
+            <column name="loss_date" length="23" />
+        </property>
+        <property name="lossDescription" type="string">
+            <column name="loss_description" length="4000"/>
+        </property>
+        <property name="fnolStatus" type="string">
+            <column name="FNOL_status" length="10" />
+        </property>
+        <property name="claimAmount" type="big_decimal">
+            <column name="claim_amount" precision="10" />
+        </property>
+		<many-to-one name="claimStatus" class="com.aig.postsale.entity.ClaimStatus" fetch="select" lazy="no-proxy">
+            <column name="claim_status" />
+        </many-to-one>
+          <property name="createTimestamp" type="timestamp">
+            <column name="create_timestamp" length="23" />
+        </property>
+        <property name="lastUpdateTimestamp" type="timestamp">
+            <column name="last_update_timestamp" length="23" />
+        </property>
+        <property name="mobileNumber" type="string">
+            <column name="mobile_number" length="20" />
+        </property>
+        <property name="emailAddress" type="string">
+            <column name="email_address" length="50" />
+        </property>
+        <set name="fnolimages" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="FNOL_number" length="20" />
+            </key>
+            <one-to-many class="com.aig.postsale.entity.Fnolimage" />
+        </set>
+    </class>
+</hibernate-mapping>

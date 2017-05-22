@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated Oct 21, 2016 3:12:00 PM by Hibernate Tools 3.2.2.GA -->
+<hibernate-mapping>
+    <class name="com.aig.postsale.entity.ClaimStatus" table="postsales_ClaimStatus" >
+        <id name="statusId" type="int">
+            <column name="status_id" />
+           <generator class="sequence" >
+            <param name="sequence">claimStatusIdSeq</param>
+            </generator>
+        </id>
+       <property name="postSaleStatus" type="string">
+            <column name="postSale_status" length="20" />
+        </property>
+        <property name="gatewayStatus" type="string">
+            <column name="gateway_status" length="20" />
+        </property>
+        <set name="fnolclaims" inverse="true" lazy="true">
+            <key>
+                <column name="claim_status" />
+            </key>
+            <one-to-many class="com.aig.postsale.entity.Fnolclaim" />
+        </set>
+        
+    </class>
+</hibernate-mapping>

@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:tx="http://www.springframework.org/schema/tx" xmlns:aop="http://www.springframework.org/schema/aop" xsi:schemaLocation="
+http://www.springframework.org/schema/beans 
+http://www.springframework.org/schema/beans/spring-beans-3.0.xsd 
+http://www.springframework.org/schema/tx 
+http://www.springframework.org/schema/tx/spring-tx-3.0.xsd
+http://www.springframework.org/schema/aop 
+http://www.springframework.org/schema/aop/spring-aop-3.0.xsd
+">
+
+    <!-- JNDI方�?�?置数�?��? -->
+    <!-- 
+    <bean id="dataSource" class="org.springframework.jndi.JndiObjectFactoryBean">
+         <property name="jndiName" value="${jndiName}"></property> 
+    </bean> 
+    -->
+
+    <!-- �?置数�?��? -->
+    
+	<bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource" destroy-method="close">
+	   <property name="driverClass" value="${driverClassName}"/>
+		<property name="user" value="${jdbc_username}"/>  
+       <!-- 用户密�?-->  
+       <property name="password" value="${jdbc_password}"/>  
+       <property name="jdbcUrl" value="${jdbc_url}"/>
+	   
+	    <!--连接池中�?留的最�?连接数。-->            
+	    <property name="minPoolSize" value="3" />        
+	    <!--连接池中�?留的最大连接数。Default: 15 -->         
+	    <property name="maxPoolSize" value="15" />        
+	    <!--最大空闲时间,1800秒内未使用则连接被丢弃。若为0则永�?丢弃。Default: 0 -->               
+	    <property name="maxIdleTime" value="1800" />        
+	    <!--当连接池中的连接耗尽的时候c3p0一次�?�时获�?�的连接数。Default: 3 -->               
+	    <property name="acquireIncrement" value="3" />        
+	    <property name="maxStatements" value="100" />         
+	    <property name="initialPoolSize" value="3" />          
+	    <!--�?60秒检查所有连接池中的空闲连接。Default: 0 -->       
+	    <property name="idleConnectionTestPeriod" value="60" />          
+	    <!--定义在从数�?�库获�?�新连接失败�?��?�?�?试的次数。Default: 30 -->       
+	    <!-- <property name="acquireRetryAttempts" value="30" />  -->  
+	    <property name="acquireRetryAttempts" value="30" />       
+	    <property name="breakAfterAcquireFailure" value="true" />             
+	    <property name="testConnectionOnCheckout" value="false" />
+	</bean>
+    <!-- �?置hibernate session工厂 -->
+    <bean id="sessionFactory" class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
+        <property name="dataSource" ref="dataSource" />
+        <property name="hibernateProperties">
+            <props>
+                <!-- web项目�?�动时是�?�更新表结构 -->
+                <prop key="hibernate.hbm2ddl.auto">${hibernate.hbm2ddl.auto}</prop>
+                <!-- 系统使用的数�?�库方言，也就是使用的数�?�库类型 -->
+                <prop key="hibernate.dialect">${hibernate.dialect}</prop>
+                <!-- 是�?�打�?�Hibernate生�?的SQL到控制�?� -->
+                <prop key="hibernate.show_sql">${hibernate.show_sql}</prop>
+                <!-- 是�?�格�?化打�?�出�?�的SQL -->
+                <prop key="hibernate.format_sql">${hibernate.format_sql}</prop>
+                <!-- <prop key="hibernate.current_session_context_class">thread</prop> -->
+            </props>
+        </property>
+
+        <!-- 自动扫�??注解方�?�?置的hibernate类文件 -->
+        <!-- <property name="packagesToScan">
+            <list>
+                <value>com.helen.sso.model</value>
+            </list>
+        </property> -->
+
+        <!-- 自动扫�??hbm方�?�?置的hibernate文件和.hbm文件 -->
+        
+        <property name="mappingDirectoryLocations">
+            <list>
+                <value>classpath:hbm/</value>
+            </list>
+        </property>
+        
+    </bean>
+
+    <!-- �?置事务管�?�器 -->
+    <bean name="transactionManager" class="org.springframework.orm.hibernate4.HibernateTransactionManager">
+        <property name="sessionFactory" ref="sessionFactory"></property>
+    </bean>
+
+    <!-- 注解方�?�?置事物 -->
+    <tx:annotation-driven transaction-manager="transactionManager" />
+
+    <!-- 拦截器方�?�?置事物 -->
+    <!-- <tx:advice id="transactionAdvice" transaction-manager="transactionManager">
+        <tx:attributes>
+            以如下关键字开头的方法使用事物
+            <tx:method name="add*" />
+            <tx:method name="save*" />
+            <tx:method name="update*" />
+            <tx:method name="modify*" />
+            <tx:method name="edit*" />
+            <tx:method name="delete*" />
+            <tx:method name="remove*" />
+            <tx:method name="repair" />
+            <tx:method name="deleteAndRepair" />
+            以如下关键字开头的方法�?使用事物
+            <tx:method name="get*" propagation="SUPPORTS" />
+            <tx:method name="find*" propagation="SUPPORTS" />
+            <tx:method name="load*" propagation="SUPPORTS" />
+            <tx:method name="search*" propagation="SUPPORTS" />
+            <tx:method name="datagrid*" propagation="SUPPORTS" />
+            其他方法�?使用事物
+            <tx:method name="*" propagation="SUPPORTS" />
+        </tx:attributes>
+    </tx:advice> -->
+    <!-- 切�?�，将事物用在哪些对象上 -->
+    <!-- <aop:config>
+        <aop:pointcut id="transactionPointcut" expression="execution(* com.aig.postsale.service..*Impl.*(..))" />
+        <aop:advisor pointcut-ref="transactionPointcut" advice-ref="transactionAdvice" />
+    </aop:config> -->
+    
+</beans>

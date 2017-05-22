@@ -1,0 +1,71 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated Oct 21, 2016 3:12:00 PM by Hibernate Tools 3.2.2.GA -->
+<hibernate-mapping>
+
+    <class name="com.aig.postsale.entity.Policy" table="postsales_Policy" >
+        <composite-id name="id" class="com.aig.postsale.entity.PolicyId">
+            <key-property name="policyNumber" type="string">
+                <column name="policy_number" length="30" />
+            </key-property>
+            <key-property name="endorsementNo" type="string">
+                <column name="endorsement_no" length="30" />
+            </key-property>
+        </composite-id>
+        <property name="policyBranch" type="string">
+            <column name="policy_branch" length="20" />
+        </property>
+        <property name="productCode" type="string">
+            <column name="product_code" length="60" />
+        </property>
+        <property name="productName" type="string">
+            <column name="product_name" />
+        </property>
+        <property name="planCode" type="string">
+            <column name="plan_code" length="60" />
+        </property>
+        <property name="planName" type="string">
+            <column name="plan_name" />
+        </property>
+        <property name="policyStatus" type="string">
+            <column name="policy_status" length="10" />
+        </property>
+        <property name="policyAmount" type="big_decimal">
+            <column name="policy_amount" precision="10" />
+        </property>
+        <property name="policyIssueDate" type="timestamp">
+            <column name="policy_issue_date" length="23" />
+        </property>
+        <property name="policyInceptionDate" type="timestamp">
+            <column name="policy_inception_date" length="23" />
+        </property>
+        <property name="policyExpiryDate" type="timestamp">
+            <column name="policy_expiry_date" length="23" />
+        </property>
+        <property name="policyChannel" type="string">
+            <column name="policy_channel" length="20" />
+        </property>
+        <property name="transactionTimestamp" type="timestamp">
+            <column name="transaction_timestamp" length="23" />
+        </property>
+        <property name="lastTransactionTimestamp" type="timestamp">
+            <column name="last_transaction_timestamp" length="23" />
+        </property>
+        <set name="fnolclaims" inverse="true" lazy="true" cascade="all" fetch="select">
+            <key>
+                <column name="policy_number" length="30" />
+                <column name="endorsement_no" length="30" />
+            </key>
+            <one-to-many class="com.aig.postsale.entity.Fnolclaim" />
+        </set>
+        <set name="insuredPersons" inverse="true" cascade="all" lazy="true" fetch="select">
+            <key>
+                <column name="policy_number" length="30" />
+                <column name="endorsement_no" length="30" />
+            </key>
+            <one-to-many class="com.aig.postsale.entity.InsuredPerson" />
+        </set>
+        
+    </class>
+</hibernate-mapping>

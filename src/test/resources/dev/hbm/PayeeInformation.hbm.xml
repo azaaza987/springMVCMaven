@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated Oct 21, 2016 3:12:00 PM by Hibernate Tools 3.2.2.GA -->
+<hibernate-mapping>
+    <class name="com.aig.postsale.entity.PayeeInformation" table="postsales_PayeeInformation" >
+        <id name="payeeInfoId" type="int">
+            <column name="payee_info_id" />
+                        <generator class="sequence" >
+            <param name="sequence">payeeInformationIdSeq</param>
+            </generator>
+        </id>
+        
+        <property name="payeeName" type="string">
+            <column name="payee_name" length="20" />
+        </property>
+        <property name="bankAccount" type="string">
+            <column name="bank_account" length="20" />
+        </property>
+        <property name="bankCity" type="string">
+            <column name="bank_city" length="20" />
+        </property>
+        <property name="bankProvince" type="string">
+            <column name="bank_province" length="20" />
+        </property>
+       <property name="bankCode" type="string">
+            <column name="bank_code" length="20" />
+        </property>
+                <property name="bankName" type="string">
+            <column name="bank_name" length="60" />
+        </property>
+        <set name="fnolclaims" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="payee_info_id" />
+            </key>
+            <one-to-many class="com.aig.postsale.entity.Fnolclaim" />
+        </set>
+    </class>
+</hibernate-mapping>

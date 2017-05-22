@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated Oct 21, 2016 3:12:00 PM by Hibernate Tools 3.2.2.GA -->
+<hibernate-mapping>
+    <class name="com.aig.postsale.entity.Fnolimage" table="postsales_FNOLImage" >
+        <id name="fnolImageId" type="int">
+            <column name="FNOL_image_id" />
+             <generator class="sequence" >
+            <param name="sequence">FnolimageIdSeq</param>
+            </generator>
+        </id>
+        <many-to-one name="miscellaneous" class="com.aig.postsale.entity.Miscellaneous" fetch="select" lazy="false">
+            <column name="image_type" />
+        </many-to-one>
+        <many-to-one name="fnolclaim" class="com.aig.postsale.entity.Fnolclaim" fetch="select" lazy="false">
+            <column name="FNOL_number" length="20" />
+        </many-to-one>
+        <property name="imageUrl" type="string">
+            <column name="image_url" length="255" />
+        </property>
+        <property name="imageData" type="binary">
+            <column name="ImageDATA" />
+        </property>
+        <property name="mediaId" type="string">
+            <column name="media_id" length="50" />
+        </property>
+    </class>
+</hibernate-mapping>
