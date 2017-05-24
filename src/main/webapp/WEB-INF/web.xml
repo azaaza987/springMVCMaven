@@ -5,12 +5,17 @@
          http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd">
 
    <!-- Spring监听器 -->
+   <!-- 
     <listener>
         <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
     </listener>
+     -->
+    <!-- 
+    
     <listener>
     	<listener-class>com.aig.postsale.comunication.listener.MessageQueueListener</listener-class>
     </listener>
+    -->
     
     <!-- Spring配置文件位置 -->
     <context-param>
@@ -19,6 +24,7 @@
     </context-param>
     
     <!-- 防止spring内存溢出监听器 -->
+    <!-- 
     <listener>
         <listener-class>org.springframework.web.util.IntrospectorCleanupListener</listener-class>
     </listener>
@@ -27,11 +33,13 @@
         <filter-name>struts2</filter-name>
         <filter-class>org.apache.struts2.dispatcher.ng.filter.StrutsPrepareAndExecuteFilter</filter-class>
     </filter>
+    
 
      <filter-mapping>
         <filter-name>struts2</filter-name>
         <url-pattern>/*</url-pattern>
     </filter-mapping>
+     -->
     <!-- <filter-mapping>
       <filter-name>struts2</filter-name>
       <url-pattern>*.jsp</url-pattern>
