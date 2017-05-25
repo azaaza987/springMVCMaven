@@ -63,5 +63,6 @@ public class CalculatorTest {
 	@Test(expected = ArithmeticException.class)
 	public void divideByZero(){
 		calculator.divide(0);
+		System.out.println("Test auto check change and auto build !    ");
 	}
 }
